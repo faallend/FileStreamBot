@@ -1,11 +1,15 @@
-FROM python:3.11
+# Dockerfile
+FROM node:18-alpine
 
 WORKDIR /app
-COPY . /app
 
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+# Install FFmpeg (required for fluent-ffmpeg)
+RUN apk add --no-cache ffmpeg
+
+COPY package*.json ./
+RUN npm install --production
 
 COPY . .
 
-CMD ["python", "-m", "FileStream"]
+EXPOSE 3000
+CMD ["npm", "start"]
