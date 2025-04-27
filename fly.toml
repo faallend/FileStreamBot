@@ -1,0 +1,16 @@
+# fly.toml
+app = "your-app-name"  # Replace with your desired app name (e.g., "filestream-bot")
+
+[build]
+  # Use the official Python Docker image
+  builder = "paketobuildpacks/builder:base"
+
+[env]
+  PORT = "8080"  # Port your app uses internally (adjust based on your code)
+
+[http_service]
+  internal_port = 8080  # Must match the PORT above
+  force_https = true
+  auto_stop_machines = false  # Keep the app running
+  auto_start_machines = true
+  min_machines_running = 1
